@@ -1,0 +1,19 @@
+{
+  "name": "simple-static-site-bundler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrii Kuprii",
+  "license": "ISC",
+  "dependencies": {
+    "ncp": "^2.0.0"
+  },
+  "devDependencies": {
+    "html-minifier": "^4.0.0",
+    "uglify-es": "github:mishoo/UglifyJS2#harmony",
+    "uglifycss": "0.0.29"
+  }
+}
