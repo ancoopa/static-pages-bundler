@@ -1,5 +1,5 @@
 const fs = require('fs');
-const ncp = require('ncp').ncp;ncp.limit = 16;
+const ncp = require('ncp').ncp;
 
 class FileManager {
   readAggregateFilesData(filePaths) {

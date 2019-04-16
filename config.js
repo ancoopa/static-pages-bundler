@@ -7,7 +7,7 @@ const BUNDLE_SCHEMA = {
   },
   LANDING: {
     html: {
-      input: path.join(__dirname, './data_sources/source_landing.html'),
+      input: path.join(__dirname, './default_html_templates/source_landing.html'),
       output: path.join(__dirname, './dist/landing.html'),
     },
     css: {
@@ -32,7 +32,7 @@ const BUNDLE_SCHEMA = {
   },
   PAYMENT: {
     html: {
-      input: path.join(__dirname, './data_sources/source_index.html'),
+      input: path.join(__dirname, './default_html_templates/source_index.html'),
       output: path.join(__dirname, './dist/index.html'),
     },
     css: {
