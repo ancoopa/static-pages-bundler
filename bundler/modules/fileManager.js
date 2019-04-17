@@ -43,7 +43,6 @@ class FileManager {
 
   checkCreateDirsForFile(futureFilePath) {
     const dirsList = futureFilePath.split('/');
-    console.log('dirsList: ', dirsList)
     const dirsLength = dirsList.length - 2; // exclude filename
 
     let dirPath = '';

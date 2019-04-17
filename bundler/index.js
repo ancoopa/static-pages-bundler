@@ -1,4 +1,3 @@
-const path = require('path');
 const FileManager = require('./modules/fileManager');
 const Uglifier = require('./modules/uglifier');
 const HtmlParser = require('./modules/htmlParser');
@@ -43,15 +42,15 @@ class Bundler {
     const pathes = {};
     Object.keys(rawPathes).forEach((key) => {
       pathes[key] = {
-        input: rawPathes[key].map(url => path.join(__dirname, url)),
-        output: path.join(__dirname, `../dist/${key.toLowerCase()}/bundle.${key.toLowerCase()}`)
+        input: rawPathes[key],
+        output: `dist/${key.toLowerCase()}/bundle.${key.toLowerCase()}`
       };
     });
     const split = htmlFilePath.split('/');
     const htmlFileName = split[split.length - 1];
     pathes.HTML = {
       input: [ htmlFilePath ],
-      output: path.join(__dirname, `../dist/${htmlFileName}`)
+      output: `dist/${htmlFileName}`
     };
     return pathes;
   }
@@ -67,4 +66,4 @@ class Bundler {
   }
 };
 
-module.exports = Bundler;
+module.exports = new Bundler();
