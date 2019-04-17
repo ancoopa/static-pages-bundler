@@ -1,5 +1,8 @@
 // npm install --save-dev uglify-js@github:mishoo/UglifyJS2#harmony
-const bundler = require('./bundler');
-const BUNDLE_SCHEMA = require('./config');
+const Bundler = require('./bundler');
 
-bundler.createBundle(BUNDLE_SCHEMA);
+const path = require('path');
+const htmlFilePath = path.join(__dirname, './index.html');
+
+const bundler = new Bundler();
+bundler.createBundle(htmlFilePath);

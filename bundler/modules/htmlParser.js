@@ -1,4 +1,5 @@
 const FileManager = require('./fileManager');
+const SearchTextHelper = require('./searchTextHelper');
 
 // TODO: make customizable
 const TAGS_CONFIG = {
@@ -6,48 +7,54 @@ const TAGS_CONFIG = {
     start: '<!-- Bundler CSS start -->',
     end: '<!-- Bundler CSS end -->'
   },
-  // JS: {
-  //   start: '<!-- Bundler JS start -->',
-  //   end: '<!-- Bundler JS end -->'
-  // }
+  JS: {
+    start: '<!-- Bundler JS start -->',
+    end: '<!-- Bundler JS end -->'
+  }
 }
 
 class HtmlParser {
-  constructor(tagsConfig = TAGS_CONFIG, fileManager = new FileManager()) {
+  constructor(
+    tagsConfig = TAGS_CONFIG,
+    fileManager = new FileManager(),
+    searchTextHelper = new SearchTextHelper()
+  ) {
     this.fileManager = fileManager;
+    this.searchTextHelper = searchTextHelper;
     this.tags = tagsConfig;
   }
 
   findPathesInHtml(htmlFilePath) {
     const htmlData = this.fileManager.readFile(htmlFilePath);
-
     const result = {};
     Object.keys(this.tags).forEach((type)=> {
       result[type] = this.findPathesBetween(htmlData, this.tags[type].start, this.tags[type].end);
     });
-    console.log(result)
     return result;
   }
 
   findPathesBetween(htmlData, startTag, endTag) {
-    const textBetween = this.findTextBetweenTags(htmlData, startTag, endTag);
-
-    console.log('~~~~~~~~~~~~~textBetween: ', textBetween)
+    const textBetween = this.searchTextHelper.findTextBetweenTags(htmlData, startTag, endTag);
+    return this.searchTextHelper.findTextBetweenAll(textBetween, `[href|src]=['|"]`, `['|"]`);
   }
 
-  findTextBetweenTags(text, startTag, endTag) {
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', text)
-    const textPiece = text.match(new RegExp(startTag + '(.*)' + endTag));
-    if (textPiece) {
-      return textPiece[1];
+  findAndReplacePathesBetween(htmlData, startTag, endTag, type) {
+    const tags = {
+      CSS: '<link rel="stylesheet" href="css/bundle.css">',
+      JS: '<script src="js/bundle.js" defer></script>'
     }
-    return // ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    const textBetween = this.searchTextHelper.findTextBetweenTags(htmlData, startTag, endTag);
+    htmlData.replace(`${startTag}${textBetween}${endTag}`, tags[type]);
+    return htmlData.replace(`${startTag}${textBetween}${endTag}`, tags[type]);
   }
+
+  replaceSources(htmlData) {
+    Object.keys(this.tags).forEach((type)=> {
+      htmlData = this.findAndReplacePathesBetween(htmlData, this.tags[type].start, this.tags[type].end, type);
+    });
+    return htmlData;
+  }
+
 };
 
-const htmlParser = new HtmlParser();
-
-const path = require('path');
-const htmlFilePath = path.join(__dirname, './index.html');
-
-htmlParser.findPathesInHtml(htmlFilePath);
+module.exports = HtmlParser;

@@ -23,6 +23,7 @@ class FileManager {
   }
 
   createWriteFile(data, filePath) {
+    this.checkCreateDirsForFile(filePath);
     return fs.writeFile(filePath, data, (err) => {
       if (err) {
         throw err;
@@ -39,6 +40,25 @@ class FileManager {
       console.log(`${source} folder copied to ${destination}`);
     });
   }
+
+  checkCreateDirsForFile(futureFilePath) {
+    const dirsList = futureFilePath.split('/');
+    console.log('dirsList: ', dirsList)
+    const dirsLength = dirsList.length - 2; // exclude filename
+
+    let dirPath = '';
+    for (let i = 0; i <= dirsLength; i++) {
+      dirPath = `${dirPath}/${dirsList[i]}`;
+      try {
+        if (!fs.existsSync(dirPath)){
+          fs.mkdirSync(dirPath);
+        }
+      } catch (err) {
+        throw err;
+      }
+    }
+  }
+  
 };
 
 module.exports = FileManager;

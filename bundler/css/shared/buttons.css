@@ -1,0 +1,41 @@
+.button-proceed {
+  display: inline-block;
+  width: 100%;
+  padding: 0.875rem 2rem 1.05rem 2rem;
+  
+  font-family: 'Quicksand-Bold', Fallback, sans-serif;
+  font-size: 1.125rem;
+  color: var(--color-blank);
+  background-color: var(--color-secondary);
+
+  border: none;
+  border-radius: 50px;
+
+  cursor: pointer;
+  outline: none;
+}
+.button-proceed:disabled {
+  cursor: wait;
+}
+.button-proceed .button-text {
+  vertical-align: middle;
+}
+
+.button-proceed .button-text.icon-ideal::before {
+  content: '';
+  display: inline-block;
+  background-image: url('../../assets/ideal-logo.svg');
+  background-size: 28px 24px;
+  width: 28px;
+  height: 24px;
+  vertical-align: sub;
+  margin-right: 10px;
+}
+.button-proceed .button-text.icon-ideal::after {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 24px;
+  vertical-align: sub;
+  margin-right: 10px;
+}

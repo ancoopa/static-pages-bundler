@@ -1,0 +1,24 @@
+html { height: 100%; }
+body {
+  font-family: 'Quicksand-Regular', Fallback, sans-serif;
+  color: var(--color-blank);
+}
+h1 {
+  font-family: 'Quicksand-Bold', Fallback, sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: -1px;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+h2 {
+  font-family: 'Quicksand-Bold', Fallback, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: -0.59px;
+  text-align: center;
+}
+h5 {
+  letter-spacing: 0px;
+  text-align: center;
+}

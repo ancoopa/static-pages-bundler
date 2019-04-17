@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "Andrii Kuprii",
+  "author": "Andrii Kuprii <ancoopa@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "ncp": "^2.0.0"
