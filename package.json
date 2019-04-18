@@ -1,7 +1,7 @@
 {
-  "name": "simple-static-site-bundler",
+  "name": "static-pages-bundler",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple static HTML+CSS+JS pages bundler. An entry point is your `index.html`. All the connected CSS, JS is parsed and compressed by their paths in the `index.html`.",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -17,5 +17,9 @@
     "jest": "^24.7.1",
     "uglify-es": "github:mishoo/UglifyJS2#harmony",
     "uglifycss": "0.0.29"
+  },
+  "bin": {
+    "spb": "./index.js",
+    "static-pages-bundler": "./index.js"
   }
 }
