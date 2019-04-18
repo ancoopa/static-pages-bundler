@@ -1,7 +1,16 @@
 {
   "name": "static-pages-bundler",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A simple static HTML+CSS+JS pages bundler. An entry point is your `index.html`. All the connected CSS, JS is parsed and compressed by their paths in the `index.html`.",
+  "keywords": [
+    "bundle",
+    "uglify",
+    "compress",
+    "static",
+    "static page",
+    "static site",
+    "frameworkless"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -21,5 +30,9 @@
   "bin": {
     "spb": "./index.js",
     "static-pages-bundler": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ancoopa/static-pages-bundler.git"
   }
 }
