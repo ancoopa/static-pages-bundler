@@ -5,7 +5,9 @@ const args = process.argv.slice(2)
 /** Args
  * args[0] -- html file path
  * TODO: args[1] -- assets folder path
- * TODO: args[2] -- assets folder restination path 
+ * TODO: args[2] -- assets folder restination path
+ * TODO: args[3] -- custom CSS tags
+ * TODO: args[4] -- custom JS tags
  */
 
 let htmlFilePath = '';

@@ -24,26 +24,26 @@ class FileManager {
 
   createWriteFile(data, filePath) {
     this.checkCreateDirsForFile(filePath);
-    return fs.writeFile(filePath, data, (err) => {
-      if (err) {
-        throw err;
-      }
-      console.log(`${filePath} file created.`);
-    });
+    try {
+      fs.writeFileSync(filePath, data);
+      return console.log(`${filePath} file created.`);
+    } catch(err) {
+      throw err;
+    }
   }
 
-  copyDir(source, destination) {
-    return ncp(source, destination, (err) => {
-      if (err) {
-        throw err;
-      }
-      console.log(`${source} folder copied to ${destination}`);
-    });
-  }
+  // copyDir(source, destination) {
+  //   return ncp(source, destination, (err) => {
+  //     if (err) {
+  //       throw err;
+  //     }
+  //     console.log(`${source} folder copied to ${destination}`);
+  //   });
+  // }
 
   checkCreateDirsForFile(futureFilePath) {
     const dirsList = futureFilePath.split('/');
-    const dirsLength = dirsList.length - 2; // exclude filename
+    const dirsLength = dirsList.length - 2; // -1 => to have index instead of count. -2 => to exclude filename
 
     let dirPath = '';
     for (let i = 0; i <= dirsLength; i++) {

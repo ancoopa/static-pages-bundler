@@ -13,9 +13,10 @@ class Bundler {
     this.htmlParser = htmlParser;
   }
 
-  createBundle(htmlFilePath) {
-    /* Get the schema FROM HtmlParser */
-    const schema = this.createSchema(htmlFilePath);
+  createBundle(htmlFilePath, schema = null) {
+    if (!schema) {
+      schema = this.createSchema(htmlFilePath);
+    }
     // html
     this.processBundleUnit(
       schema.HTML.input,

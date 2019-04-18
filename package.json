@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node index.js"
   },
   "author": "Andrii Kuprii <ancoopa@gmail.com>",
@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "html-minifier": "^4.0.0",
+    "jest": "^24.7.1",
     "uglify-es": "github:mishoo/UglifyJS2#harmony",
     "uglifycss": "0.0.29"
   }
