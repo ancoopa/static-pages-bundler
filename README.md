@@ -1,8 +1,11 @@
 # Basic usage
 ### Installation
+To istall `static-pages-bundler` globaly, simply run [```npm install -g static-pages-bundler```] from terminal.
+
+You may remove `-g` flag if you want to install `static-pages-bundler` as a dev dependansy. So, the command will be [```npm i --save-dev static-pages-bundler```].
 
 
-### Bundle schema
+### Bundling process
 
 1. Create next structure in a folder you're going to run the script from:
     ```
@@ -28,11 +31,11 @@
        `!` Its important to use exact same comment lines (`<!-- Bundler CSS start -->`, `<!-- Bundler CSS end -->`, `<!-- Bundler JS start -->` and `<!-- Bundler JS end -->`).
        `!` Also, please use only one entry point for CSS and one for JS. The library doesn't work with multiple entry points for now.
 &nbsp;
-3. Go to the location where your `index.html` located and run ```static-pages-bundler``` command from your terminal.
-  You can use ```spb``` shortcut for the command instead of full ```static-pages-bundler```.
-  Also, if the name of your HTML template is not `index.html` you can specify it in the command eg ```spb <your-html-template>```.
+1. Go to the location where your `index.html` located and run [```static-pages-bundler```] command from your terminal.
+  You can use [```spb```] shortcut for the command instead of full [```static-pages-bundler```].
+  Also, if the name of your HTML template is not `index.html` you can specify it in the command eg [```spb <your-html-template>```].
 &nbsp;
-4. As a result:
+1. As a result:
 Your HTML will be added to `dist/<filename>.html`.
 Your CSS will be compressed to `dist/css/bundle.css`.
 Your JS will be compressed to `dist/css/bundle.js`.
