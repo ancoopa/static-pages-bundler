@@ -1,8 +1,14 @@
 # Basic usage
 ### Installation
-To istall `static-pages-bundler` globaly, simply run [```npm install -g static-pages-bundler```] from terminal.
+To istall `static-pages-bundler` globaly, simply run from terminal:
+```
+  $ npm install -g static-pages-bundler
+```
 
-You may remove `-g` flag if you want to install `static-pages-bundler` as a dev dependansy. So, the command will be [```npm i --save-dev static-pages-bundler```].
+You may remove `-g` flag if you want to install `static-pages-bundler` as a dev dependansy. So, the command will be 
+```
+  $ npm i --save-dev static-pages-bundler```
+```
 
 
 ### Bundling process
@@ -41,18 +47,18 @@ You may remove `-g` flag if you want to install `static-pages-bundler` as a dev 
     
 3. Go to the location where your `index.html` located and run:
     ```
-        static-pages-bundler
+      $ static-pages-bundler
     ```
       command from your terminal.
   
       You can use next shortcut instead of full `static-pages-bundler`:
     ```
-        spb
+      $ spb
     ```
     
     Also, if the name of your HTML template is not `index.html` you can specify it in the command eg:
     ```
-        spb <your-html-template>
+      $ spb <your-html-template>
     ```
     
 
