@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "node index.js"
   },
-  "author": "Andrii Kuprii <ancoopa@gmail.com>",
+  "author": "Andrii Kuprii <ancoopa@gmail.com> (http://barnyrubble.tumblr.com/)",
   "license": "ISC",
   "dependencies": {
     "ncp": "^2.0.0"
