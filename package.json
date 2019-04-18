@@ -1,6 +1,6 @@
 {
   "name": "static-pages-bundler",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A simple static HTML+CSS+JS pages bundler. An entry point is your `index.html`. All the connected CSS, JS is parsed and compressed by their paths in the `index.html`.",
   "main": "index.js",
   "scripts": {
@@ -9,14 +9,12 @@
   },
   "author": "Andrii Kuprii <ancoopa@gmail.com> (https://github.com/ancoopa/static-pages-bundler)",
   "license": "ISC",
-  "dependencies": {
-    "ncp": "^2.0.0"
-  },
   "devDependencies": {
     "html-minifier": "^4.0.0",
     "jest": "^24.7.1",
     "uglify-es": "github:mishoo/UglifyJS2#harmony",
-    "uglifycss": "0.0.29"
+    "uglifycss": "0.0.29",
+    "ncp": "^2.0.0"
   },
   "bin": {
     "spb": "./index.js",
