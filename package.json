@@ -1,13 +1,13 @@
 {
   "name": "static-pages-bundler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple static HTML+CSS+JS pages bundler. An entry point is your `index.html`. All the connected CSS, JS is parsed and compressed by their paths in the `index.html`.",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "start": "node index.js"
   },
-  "author": "Andrii Kuprii <ancoopa@gmail.com> (http://barnyrubble.tumblr.com/)",
+  "author": "Andrii Kuprii <ancoopa@gmail.com> (https://github.com/ancoopa/static-pages-bundler)",
   "license": "ISC",
   "dependencies": {
     "ncp": "^2.0.0"
