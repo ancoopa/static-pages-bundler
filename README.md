@@ -1,6 +1,6 @@
 # About
 ### What is `static-pages-bundler`
-This is a simple library that creates a bundle of a simple web page that uses classic `<link ...>` and `<script ...>` way of connecting CSS and JS to the HTML template.
+This is a simple library that creates a bundle of a simple web page that uses classic `<link ...>` and `<script ...>` way to connect a bunch of CSS and JS files to the HTML template.
   
 An entry point is your `index.html`. All the connected CSS, JS found by their paths in the `index.html`. Then the data parsed and compressed into three files: `index.html`, `bundle.css` and `bundle.js`.
     
