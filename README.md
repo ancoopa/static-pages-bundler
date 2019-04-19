@@ -12,6 +12,10 @@ For now `static-pages-bundler` tested only on `macOS Movaje v10.14.4`, `Windows 
     
     
 # Basic usage
+### Video tutorial
+[Watch on YouTube](https://www.youtube.com/watch?v=SJah7s5NfWc&feature=youtu.be)
+    
+    
 ### Installation
 To use the library you will need to have [node.js](https://nodejs.org/en/) and [git](https://git-scm.com/) installed on your system.
   
