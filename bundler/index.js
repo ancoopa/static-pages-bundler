@@ -44,7 +44,7 @@ class Bundler {
     Object.keys(rawPathes).forEach((key) => {
       pathes[key] = {
         input: rawPathes[key],
-        output: `dist/${key.toLowerCase()}/bundle.${key.toLowerCase()}`
+        output: `dist/bundle.${key.toLowerCase()}`
       };
     });
     const split = htmlFilePath.split('/');

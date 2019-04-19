@@ -40,8 +40,8 @@ class HtmlParser {
 
   findAndReplacePathesBetween(htmlData, startTag, endTag, type) {
     const tags = {
-      CSS: '<link rel="stylesheet" href="css/bundle.css">',
-      JS: '<script src="js/bundle.js" defer></script>'
+      CSS: '<link rel="stylesheet" href="bundle.css">',
+      JS: '<script src="bundle.js" defer></script>'
     }
     const textBetween = this.searchTextHelper.findTextBetweenTags(htmlData, startTag, endTag);
     htmlData.replace(`${startTag}${textBetween}${endTag}`, tags[type]);
