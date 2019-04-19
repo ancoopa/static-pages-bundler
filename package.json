@@ -1,6 +1,6 @@
 {
   "name": "static-pages-bundler",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A simple static HTML+CSS+JS pages bundler. An entry point is your `index.html`. All the connected CSS, JS is parsed and compressed by their paths in the `index.html`.",
   "keywords": [
     "bundle",
