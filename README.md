@@ -11,12 +11,12 @@ For now `static-pages-bundler` tested only on macOS Movaje v10.14.4.
     
 # Basic usage
 ### Installation
-To istall `static-pages-bundler` globaly, simply run from terminal:
+To install `static-pages-bundler` globally, simply run from terminal:
 ```
   $ npm install -g static-pages-bundler
 ```
 
-You may remove `-g` flag if you want to install `static-pages-bundler` as a dev dependansy. So, the command will be 
+You may remove the `-g` flag if you want to install `static-pages-bundler` as a dev dependency. So, the command will be 
 ```
   $ npm i --save-dev static-pages-bundler```
 ```
@@ -25,7 +25,7 @@ You may remove `-g` flag if you want to install `static-pages-bundler` as a dev 
 ### Bundling process
 
 1. Create a `dist` folder you're going to run the script from.
-    You may skip the step, but in the case, you will have to run `static-pages-bundler` using `sudo` to give the bundler permissions to create that folder structure for you (running npm libs with `sudo` is never recommended with any third party lib).
+    You may skip the step, but in the case, you will have to run `static-pages-bundler` using `sudo` to give the bundler permissions to create that folder structure for you (running `npm` libs with `sudo` is never recommended with any third party lib).
     
     
 2. In your HTML template setup the entry points for the bundler: 
@@ -51,13 +51,12 @@ You may remove `-g` flag if you want to install `static-pages-bundler` as a dev 
    `!` Also, please use only one entry point for CSS and one for JS. The library doesn't work with multiple entry points for now.
     
     
-3. Go to the location where your `index.html` located and run:
+3. Using terminal go to the location where your `index.html` located and run:
     ```
       $ static-pages-bundler
     ```
-      command from your terminal.
   
-      You can use next shortcut instead of full `static-pages-bundler`:
+      You can use the next shortcut instead of full `static-pages-bundler`:
     ```
       $ spb
     ```
