@@ -22,7 +22,7 @@ To install `static-pages-bundler` globally, simply run from terminal:
   
 You may remove the `-g` flag if you want to install `static-pages-bundler` as a dev dependency. So, the command will be 
 ```
-  $ npm i --save-dev static-pages-bundler```
+  $ npm i --save-dev static-pages-bundler
 ```
 
 
