@@ -4,7 +4,7 @@ class SearchTextHelper {
     if (textPiece !== null) {
       return textPiece[1];
     }
-    throw new Error(`Something went wrong during finding text between "${startTag}" and "${endTag}" tags.`);
+    throw new Error(`Something went wrong during finding text between tags. Please, make sure you have both <!-- Bundler CSS ... --> and <!-- Bundler JS ... --> comment line sets in your template.`);
   }
 
   findTextBetweenAll(text, startTag, endTag) {
@@ -12,7 +12,7 @@ class SearchTextHelper {
     if (textPiece !== null) {
       return textPiece;
     }
-    throw new Error(`Something went wrong during finding text between "${startTag}" and "${endTag}" tags.`);
+    throw new Error(`Something went wrong during finding text between tags. Please, make sure you have both <!-- Bundler CSS ... --> and <!-- Bundler JS ... --> comment line sets in your template.`);
   }
 
   matchAll(text, regex) {
