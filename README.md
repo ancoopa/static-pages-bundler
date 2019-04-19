@@ -6,7 +6,7 @@ An entry point is your `index.html`. All the connected CSS, JS found by their pa
     
     
 ### `!` Important notes
-For now `static-pages-bundler` tested only on `macOS Movaje v10.14.4` and `Windows 7 Enterprise`.
+For now `static-pages-bundler` tested only on `macOS Movaje v10.14.4`, `Windows 7 Enterprise` and `Ubuntu 18.04.2 LTS`.
     
     
 # Basic usage
