@@ -6,7 +6,7 @@ class FileManager {
     let fullData = '';
     if (Array.isArray(filePaths)) {
       filePaths.forEach((filePath) => {
-        fullData = fullData + this.readFile(filePath);
+        fullData = fullData + '\n' + this.readFile(filePath);
       });
     } else if (typeof filePaths === 'string') {
       fullData = this.readFile(filePaths);

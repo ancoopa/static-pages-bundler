@@ -22,7 +22,8 @@ class Uglifier {
   uglifyJs(data) {
     const result = UglifyJS.minify(data);
     if (result.error) {
-      return console.error('Uglify error: ', result.error)
+      console.error('Uglify error: ', result.error);
+      return data;
     }
     return result.code;
   }
