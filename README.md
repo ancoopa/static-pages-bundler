@@ -23,7 +23,9 @@ You may remove the `-g` flag if you want to install `static-pages-bundler` as a 
 
 
 ### Bundling process
-
+0. To use the library you will need to have [node.js](https://nodejs.org/en/) and [git](https://git-scm.com/) installed on your system.
+  
+    
 1. Create a `dist` folder you're going to run the script from.
     You may skip the step, but in the case, you will have to run `static-pages-bundler` using `sudo` to give the bundler permissions to create that folder structure for you (running `npm` libs with `sudo` is never recommended with any third party lib).
     
