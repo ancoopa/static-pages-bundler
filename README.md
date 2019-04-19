@@ -1,6 +1,8 @@
 # About
 ### What is `static-pages-bundler`
-This is a simple library that makes a bundle of a simple web page that uses classic `<link ...>` and `<script ...>` way of connecting CSS and JS to the HTML template.
+This is a simple library that creates a bundle of a simple web page that uses classic `<link ...>` and `<script ...>` way of connecting CSS and JS to the HTML template.
+  
+An entry point is your `index.html`. All the connected CSS, JS found by their paths in the `index.html`. Then the data parsed and compressed into three files: `index.html`, `bundle.css` and `bundle.js`.
     
     
 ### `!` Important notes
@@ -22,12 +24,7 @@ You may remove `-g` flag if you want to install `static-pages-bundler` as a dev 
 
 ### Bundling process
 
-1. Create next structure in a folder you're going to run the script from:
-    ```
-      dist
-      dist/css
-      dist/js
-    ```
+1. Create a `dist` folder you're going to run the script from.
     You may skip the step, but in the case, you will have to run `static-pages-bundler` using `sudo` to give the bundler permissions to create that folder structure for you (running npm libs with `sudo` is never recommended with any third party lib).
     
     
@@ -73,9 +70,9 @@ You may remove `-g` flag if you want to install `static-pages-bundler` as a dev 
 
 4. As a result:
 Your HTML will be added to `dist/<filename>.html`.
-Your CSS will be compressed to `dist/css/bundle.css`.
-Your JS will be compressed to `dist/css/bundle.js`.
-All your `<link` and `<script>` lines that were wrapped info CSS and JS comment lines will be replaced with `<link rel="stylesheet" href="css/bundle.css">` and `<script src="js/bundle.js" defer></script>`.
+Your CSS will be compressed to `dist/bundle.css`.
+Your JS will be compressed to `dist/bundle.js`.
+All your `<link` and `<script>` lines that were wrapped info CSS and JS comment lines will be replaced with `<link rel="stylesheet" href="bundle.css">` and `<script src="bundle.js" defer></script>`.
       
   
     

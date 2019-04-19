@@ -1,7 +1,7 @@
 {
   "name": "static-pages-bundler",
-  "version": "1.0.7",
-  "description": "A simple static HTML+CSS+JS pages bundler. An entry point is your `index.html`. All the connected CSS, JS is parsed and compressed by their paths in the `index.html`.",
+  "version": "1.0.8",
+  "description": "This is a simple library that creates a bundle of a simple web page that uses classic `<link ...>` and `<script ...>` way of connecting CSS and JS to the HTML template.",
   "keywords": [
     "bundle",
     "uglify",
