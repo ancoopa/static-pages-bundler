@@ -28,7 +28,8 @@ You may remove the `-g` flag if you want to install `static-pages-bundler` as a 
     You may skip the step, but in the case, you will have to run `static-pages-bundler` using `sudo` to give the bundler permissions to create that folder structure for you (running `npm` libs with `sudo` is never recommended with any third party lib).
     
     
-2. In your HTML template setup the entry points for the bundler: 
+2. In your HTML template setup the entry points for the bundler:
+  
      2.1. Wrap your `<link ...>` elements that have CSS files imports via CSS comments:
    ```
        <!-- Bundler CSS start -->
