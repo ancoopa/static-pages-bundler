@@ -1,3 +1,12 @@
+# About
+### What is `static-pages-bundler`
+This is a simple library that makes a bundle of a simple web page that uses classic `<link ...>` and `<script ...>` way of connecting CSS and JS to the HTML template.
+    
+    
+### `!` Important notes
+For now `static-pages-bundler` tested only on macOS Movaje v10.14.4.
+    
+    
 # Basic usage
 ### Installation
 To istall `static-pages-bundler` globaly, simply run from terminal:
