@@ -45,7 +45,7 @@ class FileManager {
     const dirsList = futureFilePath.split('/');
     const dirsLength = dirsList.length - 2; // -1 => to have index instead of count. -2 => to exclude filename
 
-    let dirPath = '';
+    let dirPath = '.';
     for (let i = 0; i <= dirsLength; i++) {
       dirPath = `${dirPath}/${dirsList[i]}`;
       try {
