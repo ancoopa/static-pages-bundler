@@ -35,7 +35,7 @@ class HtmlParser {
 
   findPathesBetween(htmlData, startTag, endTag) {
     const textBetween = this.searchTextHelper.findTextBetweenTags(htmlData, startTag, endTag);
-    return this.searchTextHelper.findTextBetweenAll(textBetween, `[href|src]=['|"]`, `['|"]`);
+    return this.searchTextHelper.findHrefSrcBetweenAll(textBetween);
   }
 
   findAndReplacePathesBetween(htmlData, startTag, endTag, type) {
