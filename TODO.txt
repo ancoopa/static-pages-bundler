@@ -1,4 +1,7 @@
+IN PROGRESS:
 1. CDN served files download support.
+
+TODO:
 *. Single-file bundle (CSS & JS in HTML).
 *. Put assets dir into bundle dir mechanism.
 *. Support multiple `Bundler CSS/JS start/end` entrypoints (for now only 1 CSS and 1 JS enty point).
