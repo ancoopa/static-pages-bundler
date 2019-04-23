@@ -52,6 +52,7 @@ You may remove the `-g` flag if you want to install `static-pages-bundler` as a 
        <!-- Bundler JS end -->
    ```
    `!` If you have any CDN links in your files, please leave it outside of the comments because `static-pages-bundler` doesn't support the feature. For now, it works only with files that are located on your computer, but there is the feature in the `static-pages-bundler` dev plan, so it will be implemented later.
+     
    `!` Its important to use exact same comment lines 
    ```
        <!-- Bundler CSS start -->,
