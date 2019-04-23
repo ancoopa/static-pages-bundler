@@ -1,6 +1,6 @@
 {
   "name": "static-pages-bundler",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "This is a simple library that creates a bundle of a simple web page that uses classic `<link ...>` and `<script ...>` way to connect a bunch of CSS and JS files to the HTML template.",
   "keywords": [
     "bundle",
