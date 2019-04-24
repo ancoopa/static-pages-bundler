@@ -2,19 +2,23 @@ const http = require('http');
 const https = require('https');
 
 class Networker {
-  getRemoteFileData(url) {
+  constructor() {
+    this.patternUrl = /^(http|https|ftp)?(?:[\:\/]*)([a-z0-9\.-]*)(?:\:([0-9]+))?(\/[^?#]*)?(?:\?([^#]*))?(?:#(.*))?$/i;
+  }
+
+  fetchRemoteFileData(url) {
     const request = this.pickupRequestLibrary(url);
     return new Promise((resolve, reject) => {
       request.get(url, (res) => {
         res.on('error', (e) => {
           reject(e);
         });
-        res.setEncoding("utf8");
-        let body = "";
-        res.on("data", data => {
+        res.setEncoding('utf8');
+        let body = '';
+        res.on('data', data => {
           body += data;
         });
-        res.on("end", () => {
+        res.on('end', () => {
           resolve(body);
         });
       });
@@ -32,7 +36,7 @@ class Networker {
   }
 
   parseUrl(url) {
-    const match = url.match(/^(http|https|ftp)?(?:[\:\/]*)([a-z0-9\.-]*)(?:\:([0-9]+))?(\/[^?#]*)?(?:\?([^#]*))?(?:#(.*))?$/i);
+    const match = url.match(this.patternUrl);
     const result = {
       protocol: '',
       host: match[2],

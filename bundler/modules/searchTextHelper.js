@@ -8,7 +8,7 @@ class SearchTextHelper {
   }
 
   findHrefSrcBetweenAll(text) {
-    const patternHrefSrc = /(?:href|src)=(["'])([^]*?)(?:'|")/g;
+    const patternHrefSrc = /(?:href|src)=(["'])([^]*?)(?:'|")/;
     const textPiece = this.matchAll(text, patternHrefSrc);
     if (textPiece !== null) {
       return textPiece;
