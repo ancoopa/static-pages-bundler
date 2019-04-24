@@ -13,25 +13,25 @@ class Bundler {
     this.htmlParser = htmlParser;
   }
 
-  createBundle(htmlFilePath, schema = null) {
+  async createBundle(htmlFilePath, schema = null) {
     if (!schema) {
       schema = this.createSchema(htmlFilePath);
     }
     // html
-    this.processBundleUnit(
+    await this.processBundleUnit(
       schema.HTML.input,
       schema.HTML.output,
       this.uglifier.uglifyHtml,
       true
     );
     // css
-    this.processBundleUnit(
+    await this.processBundleUnit(
       schema.CSS.input,
       schema.CSS.output,
       this.uglifier.uglifyCss
     );
     // js
-    this.processBundleUnit(
+    await this.processBundleUnit(
       schema.JS.input,
       schema.JS.output,
       this.uglifier.uglifyJs
@@ -40,6 +40,7 @@ class Bundler {
 
   createSchema(htmlFilePath) {
     const rawPathes = this.htmlParser.findPathesInHtml(htmlFilePath);
+    
     const pathes = {};
     Object.keys(rawPathes).forEach((key) => {
       pathes[key] = {
@@ -47,17 +48,19 @@ class Bundler {
         output: `dist/bundle.${key.toLowerCase()}`
       };
     });
+
     const split = htmlFilePath.split('/');
     const htmlFileName = split[split.length - 1];
     pathes.HTML = {
       input: [ htmlFilePath ],
       output: `dist/${htmlFileName}`
     };
+
     return pathes;
   }
 
-  processBundleUnit(filesPathsList, outputPath, uglifyMethod, isHtml = false) {
-    let data = this.fileManager.readAggregateFilesData(filesPathsList);
+  async processBundleUnit(filesPathsList, outputPath, uglifyMethod, isHtml = false) {
+    let data = await this.fileManager.readAggregateFilesData(filesPathsList);
     if (isHtml) {
       data = this.htmlParser.replaceSources(data);
     }

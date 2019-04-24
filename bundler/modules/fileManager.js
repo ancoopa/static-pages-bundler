@@ -1,12 +1,27 @@
 const fs = require('fs');
 // const ncp = require('ncp').ncp;
+const Networking = require('./networking');
+const Utils = require('./utils');
 
 class FileManager {
-  readAggregateFilesData(filePaths) {
+  constructor(networker = new Networking()) {
+    this.networker = networker;
+  }
+
+  isPathUrl(filePath) {
+    const { protocol } = this.networker.parseUrl(filePath);
+    return protocol === 'https' || protocol === 'http';
+  }
+
+  async readAggregateFilesData(filePaths) {
     let fullData = '';
     if (Array.isArray(filePaths)) {
-      filePaths.forEach((filePath) => {
-        fullData = fullData + '\n' + this.readFile(filePath);
+      await Utils.asyncForEach(filePaths, async (filePath) => {
+        if (this.isPathUrl(filePath)) {
+          fullData = fullData + '\n' + await this.networker.fetchRemoteFileData(filePath);
+        } else {
+          fullData = fullData + '\n' + this.readFile(filePath);
+        }
       });
     } else if (typeof filePaths === 'string') {
       fullData = this.readFile(filePaths);

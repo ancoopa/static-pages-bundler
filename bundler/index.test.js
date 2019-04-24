@@ -1,4 +1,7 @@
+const fs = require('fs');
+const path = require('path');
 const bundler = require('./index');
+const uglifier = new (require('./modules/uglifier'))();
 const fileManager = new (require('./modules/fileManager'))();
 
 describe('Main bundler module', () => {
@@ -8,6 +11,7 @@ describe('Main bundler module', () => {
       CSS: {
         input: [
           'background-color.css',
+          'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
           'letter-spacing.css',
           'text-color.css',
           'text-size.css',
@@ -35,6 +39,7 @@ describe('Main bundler module', () => {
       CSS: {
         input: [
           'bundler/test_data/background-color.css',
+          'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
           'bundler/test_data/letter-spacing.css',
           'bundler/test_data/text-color.css',
           'bundler/test_data/text-size.css',
@@ -64,11 +69,17 @@ describe('Main bundler module', () => {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]--><script src="bundle.js" defer="defer"></script></head><body><div>My beautiful text.</div></body></html>
       `,
-      CSS: `div{background-color:green}div{letter-spacing:20px}div{color:orange}div{font-size:30px}div{text-align:center}`,
+      // CSS: `div{background-color:green}div{letter-spacing:20px}div{color:orange}div{font-size:30px}div{text-align:center}`,
+      CSS: getFullCssResultMock(),
       JS: `console.log("1"),console.log("2"),console.log("3");`
-    }
+    },
 
   };
+
+  function getFullCssResultMock() {
+    const bootstrap = fileManager.readFile('./bundler/test_data/networking/bootstrap.min.css');
+    return uglifier.uglifyCss(`div{background-color:green}${bootstrap}div{letter-spacing:20px}div{color:orange}div{font-size:30px}div{text-align:center}`);
+  }
 
   function checkBundleFromCustomSchemaMock() {
     // Get folder files
@@ -88,9 +99,6 @@ describe('Main bundler module', () => {
   }
   
   function clearDistFolder() {
-    const fs = require('fs');
-    const path = require('path');
-
     const split = MOCK.SCHEMA_CUSTOM_OUTPUT.HTML.output.split('/');
     split.splice(-1,1);
     const directory = split.join('/');
@@ -99,7 +107,7 @@ describe('Main bundler module', () => {
       if (err) throw err;
 
       for (const file of files) {
-        fs.unlink(path.join(directory, file), err => {
+        fs.unlink(path.join(directory, file), (err) => {
           if (err) throw err;
         });
       }
@@ -123,8 +131,8 @@ describe('Main bundler module', () => {
     expect(schema).toEqual(MOCK.SCHEMA);
   });
 
-  test('Creates a proper bundle', () => {
-    bundler.createBundle(TestHtmlFilePath, MOCK.SCHEMA_CUSTOM_OUTPUT);
+  test('Creates a proper bundle', async () => {
+    await bundler.createBundle(TestHtmlFilePath, MOCK.SCHEMA_CUSTOM_OUTPUT);
     checkBundleFromCustomSchemaMock();
     clearDistFolder();
   });
