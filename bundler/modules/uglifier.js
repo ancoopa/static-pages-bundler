@@ -1,4 +1,3 @@
-// npm install --save-dev uglify-js@github:mishoo/UglifyJS2#harmony
 const minify = require('html-minifier').minify;
 const uglifycss = require('uglifycss');
 const UglifyJS = require("uglify-es");
@@ -27,12 +26,6 @@ class Uglifier {
     }
     return result.code;
   }
-  
-  // removeWhiteSpaces(str) {
-  //   return str
-  //     .replace(/(\r\n|\n|\r)/gm,"") // line breaks
-  //     .replace(/\s/g,' '); // spaces
-  // }
 
 };
 

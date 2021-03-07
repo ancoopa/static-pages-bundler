@@ -4,70 +4,115 @@ const HtmlParser = require('./modules/htmlParser');
 
 class Bundler {
   constructor(
-    fileManager = new FileManager(),
-    uglifier = new Uglifier(),
-    htmlParser = new HtmlParser()
+    pathConfig,
+    tagConfig,
   ) {
-    this.fileManager = fileManager;
-    this.uglifier = uglifier;
-    this.htmlParser = htmlParser;
+    this.pathConfig = pathConfig;
+    this.tagConfig = tagConfig;
+    this.fileManager = new FileManager();
+    this.uglifier = new Uglifier();
+    this.htmlParser = new HtmlParser(tagConfig);
   }
 
-  async createBundle(htmlFilePath, schema = null) {
-    if (!schema) {
-      schema = this.createSchema(htmlFilePath);
+  async create() {
+    try {
+      this._logBundleStarting();
+      this._dist();
+      this._assets();
+      const htmlPath = this.pathConfig.HTML;
+      const htmlData = await this.fileManager.readAggregateFilesData(htmlPath);
+      if (!htmlData) {
+        this._logFileNotCreated(htmlPath);
+        throw `File not created ${htmlPath}`;
+      }
+      const cssBundleName = await this._css(htmlData);
+      const jsBundleName = await this._js(htmlData);
+      await this._html(htmlData, htmlPath, cssBundleName, jsBundleName);
+      this._logBundleFinished();
+    } catch(error) {
+      this._removeDistFolder();
+      this._logBundleFailed();
     }
-    // html
-    await this.processBundleUnit(
-      schema.HTML.input,
-      schema.HTML.output,
-      this.uglifier.uglifyHtml,
-      true
-    );
-    // css
-    await this.processBundleUnit(
-      schema.CSS.input,
-      schema.CSS.output,
-      this.uglifier.uglifyCss
-    );
-    // js
-    await this.processBundleUnit(
-      schema.JS.input,
-      schema.JS.output,
-      this.uglifier.uglifyJs
-    );
   }
 
-  createSchema(htmlFilePath) {
-    const rawPathes = this.htmlParser.findPathesInHtml(htmlFilePath);
-    
-    const pathes = {};
-    Object.keys(rawPathes).forEach((key) => {
-      pathes[key] = {
-        input: rawPathes[key],
-        output: `dist/bundle.${key.toLowerCase()}`
-      };
-    });
+  _logBundleStarting() {
+    console.log(`⌛ Starting Bundle for ${this.pathConfig.HTML}`)
+  }
 
-    const split = htmlFilePath.split('/');
+  _logFileNotCreated(filePath) {
+    console.log(`🚫 ${filePath}`);
+  }
+
+  _logFileNotFound(filePath) {
+    console.log(`❓ ${filePath}`);
+  }
+
+  _logFileCreated(filePath) {
+    console.log(`📁 ${filePath} ✓`)
+  }
+
+  _logBundleFinished() {
+    console.log(`✅ Finished Bundle for ${this.pathConfig.HTML} → ${this.pathConfig.DIST}`)
+  }
+
+  _logBundleFailed() {
+    console.log(`❌ Failed Bundle ${this.pathConfig.HTML}`)
+  }
+
+  _removeDistFolder() {
+    this.fileManager.removeFolder(this.pathConfig.DIST);
+  }
+
+  _write(data, uglifier, filePath) {
+    if (this.fileManager.createWriteFile(uglifier(data), filePath)) this._logFileCreated(filePath);
+    else this._logFileNotCreated(filePath);
+  }
+
+  _dist() {
+    const filePath = this.pathConfig.DIST;
+    this.fileManager.overwriteFolder(filePath);
+    this._logFileCreated(filePath);
+  }
+
+  _assets() {
+    const from = this.pathConfig.ASSETS;
+    const to = this.pathConfig.DIST;
+    const filePath = `${to}/${from}`;
+    if (this.fileManager.copyFolderRecursiveSync(from, to)) this._logFileCreated(filePath);
+    else this._logFileNotCreated(filePath);
+  }
+
+  async _src(html, tag, uglifier, name) {
+    const paths = this.htmlParser.findPathsInHtml(html, tag);
+    const filePath = `${this.pathConfig.DIST}/${name}`;
+    if (!paths.length) {
+      this._logFileNotCreated(filePath);
+      return null;
+    }
+    const data = await this.fileManager.readAggregateFilesData(paths, false, (path) => this._logFileNotFound(path));
+    if (!data) {
+      this._logFileNotCreated(filePath);
+      return null;
+    }
+    this._write(data, uglifier, filePath);
+    return name
+  }
+
+  async _html(htmlData, htmlPath, cssBundleName, jsBundleName) {
+    const split = htmlPath.split('/');
     const htmlFileName = split[split.length - 1];
-    pathes.HTML = {
-      input: [ htmlFilePath ],
-      output: `dist/${htmlFileName}`
-    };
-
-    return pathes;
+    const html = await this.htmlParser.replaceSources(htmlData, cssBundleName, jsBundleName);
+    this._write(html, this.uglifier.uglifyHtml, `${this.pathConfig.DIST}/${htmlFileName}`);
   }
 
-  async processBundleUnit(filesPathsList, outputPath, uglifyMethod, isHtml = false) {
-    let data = await this.fileManager.readAggregateFilesData(filesPathsList);
-    if (isHtml) {
-      data = this.htmlParser.replaceSources(data);
-    }
-    
-    const uglifiedData = uglifyMethod(data);
-    return this.fileManager.createWriteFile(uglifiedData, outputPath);
+  async _css(html) {
+    return await this._src(html, this.tagConfig.CSS, this.uglifier.uglifyCss, 'bundle.css');
   }
+
+  async _js(html) {
+    return await this._src(html, this.tagConfig.JS, this.uglifier.uglifyJs, 'bundle.js');
+  }
+
 };
 
-module.exports = new Bundler();
+module.exports = Bundler;

@@ -1,24 +1,20 @@
 class SearchTextHelper {
   findTextBetweenTags(text, startTag, endTag) {
     const textPiece = text.match(new RegExp(`${startTag}([^]*?)${endTag}`), 'm');
-    if (textPiece !== null) {
-      return textPiece[1];
-    }
-    throw new Error(`Something went wrong during finding text between tags. Please, make sure you have both <!-- Bundler CSS ... --> and <!-- Bundler JS ... --> comment line sets in your template.`);
+    if (textPiece !== null) return textPiece[1];
+    return null
   }
 
   findHrefSrcBetweenAll(text) {
     const patternHrefSrc = /(?:href|src)=(["'])([^]*?)(?:'|")/;
     const textPiece = this.matchAll(text, patternHrefSrc);
-    if (textPiece !== null) {
-      return textPiece;
-    }
-    throw new Error(`Something went wrong during finding text between tags. Please, make sure you have both <!-- Bundler CSS ... --> and <!-- Bundler JS ... --> comment line sets in your template.`);
+    return textPiece;
   }
 
   matchAll(text, regex) {
     const result = [];
     let match = regex.exec(text);
+    if (!match || match.length !== 3) return null;
     result.push(match[2]);
 
     while (match !== null) {
