@@ -8,7 +8,8 @@ const PATH_CONFIG = {
   DIST: 'dist',
   ASSETS: 'assets',
   CSS: 'css',
-  JS: 'js'
+  JS: 'js',
+  FOLDER: '',
 };
 
 const TAG_CONFIG = {
@@ -36,9 +37,9 @@ parser.add_argument('-tsc', '--tag-start-css', { help: 'The css start tag', defa
 parser.add_argument('-tec', '--tag-end-css', { help: 'The css end tag', default: TAG_CONFIG.CSS.END });
 parser.add_argument('-tsj', '--tag-start-js', { help: 'The js start tag', default: TAG_CONFIG.JS.START });
 parser.add_argument('-tej', '--tag-end-js', { help: 'The js end tag', default: TAG_CONFIG.JS.END });
+parser.add_argument('-f', '--folder', { help: 'The folder', default: PATH_CONFIG.FOLDER});
 
 const args = parser.parse_args();
-console.log(args);
 if (args.html) PATH_CONFIG.HTML = args.html;
 if (args.dist) PATH_CONFIG.DIST = args.dist;
 if (args.assets) PATH_CONFIG.ASSETS = args.assets;
@@ -48,5 +49,12 @@ if (args.tag_start_css) TAG_CONFIG.CSS.START = args.tag_start_css;
 if (args.tag_end_css) TAG_CONFIG.CSS.END = args.tag_end_css;
 if (args.tag_start_js) TAG_CONFIG.JS.START = args.tag_start_js;
 if (args.tag_end_js) TAG_CONFIG.JS.END = args.tag_end_js;
+if (args.folder) {
+  const folder = `${args.folder}/`;
+  for (const property in PATH_CONFIG) {
+    if (property !== 'DIST' && property !== 'FOLDER') PATH_CONFIG[property] = `${folder}${PATH_CONFIG[property]}`;
+  }
+  PATH_CONFIG.FOLDER = folder;
+}
 
 new Bundler(PATH_CONFIG, TAG_CONFIG).create();

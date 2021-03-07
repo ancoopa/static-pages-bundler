@@ -30,6 +30,7 @@ class Bundler {
       await this._html(htmlData, htmlPath, cssBundleName, jsBundleName);
       this._logBundleFinished();
     } catch(error) {
+      console.log(error);
       this._removeDistFolder();
       this._logBundleFailed();
     }
@@ -75,9 +76,12 @@ class Bundler {
   }
 
   _assets() {
-    const from = this.pathConfig.ASSETS;
-    const to = this.pathConfig.DIST;
-    const filePath = `${to}/${from}`;
+    const folder = this.pathConfig.FOLDER;
+    const assets = this.pathConfig.ASSETS;
+    const from = assets;
+    const dist = this.pathConfig.DIST;
+    const to = `${dist}`;
+    const filePath = `${dist}/${from.replace(folder, '')}`;
     if (this.fileManager.copyFolderRecursiveSync(from, to)) this._logFileCreated(filePath);
     else this._logFileNotCreated(filePath);
   }
@@ -88,6 +92,12 @@ class Bundler {
     if (!paths.length) {
       this._logFileNotCreated(filePath);
       return null;
+    }
+    const folder = this.pathConfig.FOLDER;
+    if (folder) {
+      paths.forEach((path, index) => {
+        paths[index] = `${folder}${path}`;
+      })
     }
     const data = await this.fileManager.readAggregateFilesData(paths, false, (path) => this._logFileNotFound(path));
     if (!data) {

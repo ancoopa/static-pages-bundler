@@ -30,7 +30,7 @@ class HtmlParser {
         htmlData, this._wrap(this.tagConfig.CSS.START), this._wrap(this.tagConfig.CSS.END), `<link rel="stylesheet" href="${cssBundleName}">`);
     if (jsBundleName) 
         htmlData = this.findAndReplacePathsBetween(
-          htmlData, this._wrap(this.tagConfig.JS.START), this._wrap(this.tagConfig.JS.END), `<script src="${jsBundleName}" defer></script>'`);
+          htmlData, this._wrap(this.tagConfig.JS.START), this._wrap(this.tagConfig.JS.END), `<script src="${jsBundleName}" defer></script>`);
     return htmlData;
   }
 
