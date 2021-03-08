@@ -25,6 +25,7 @@
     "uglifycss": "0.0.29"
   },
   "devDependencies": {
+    "argparse": "^2.0.1",
     "jest": "^24.7.1",
     "ncp": "^2.0.0"
   },

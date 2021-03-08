@@ -1,58 +1,41 @@
-const FileManager = require('./fileManager');
 const SearchTextHelper = require('./searchTextHelper');
 
-// TODO: make customizable
-const TAGS_CONFIG = {
-  CSS: {
-    start: '<!-- Bundler CSS start -->',
-    end: '<!-- Bundler CSS end -->'
-  },
-  JS: {
-    start: '<!-- Bundler JS start -->',
-    end: '<!-- Bundler JS end -->'
-  }
-}
-
 class HtmlParser {
-  constructor(
-    tagsConfig = TAGS_CONFIG,
-    fileManager = new FileManager(),
-    searchTextHelper = new SearchTextHelper()
-  ) {
-    this.fileManager = fileManager;
-    this.searchTextHelper = searchTextHelper;
-    this.tags = tagsConfig;
+  constructor(tagConfig) {
+    this.tagConfig = tagConfig;
+    this.searchTextHelper = new SearchTextHelper();
   }
 
-  findPathesInHtml(htmlFilePath) {
-    const htmlData = this.fileManager.readFile(htmlFilePath);
-    const result = {};
-    Object.keys(this.tags).forEach((type)=> {
-      result[type] = this.findPathesBetween(htmlData, this.tags[type].start, this.tags[type].end);
-    });
-    return result;
+  findPathsInHtml(html, tag) {
+    return this.findPathsBetween(html, this._wrap(tag.START), this._wrap(tag.END));
   }
 
-  findPathesBetween(htmlData, startTag, endTag) {
+  findPathsBetween(htmlData, startTag, endTag) {
     const textBetween = this.searchTextHelper.findTextBetweenTags(htmlData, startTag, endTag);
-    return this.searchTextHelper.findHrefSrcBetweenAll(textBetween);
+    if (!textBetween) return [];
+    const paths = this.searchTextHelper.findHrefSrcBetweenAll(textBetween);
+    if (!paths) return [];
+    return paths;
   }
 
-  findAndReplacePathesBetween(htmlData, startTag, endTag, type) {
-    const tags = {
-      CSS: '<link rel="stylesheet" href="bundle.css">',
-      JS: '<script src="bundle.js" defer></script>'
-    }
+  findAndReplacePathsBetween(htmlData, startTag, endTag, newTag) {
     const textBetween = this.searchTextHelper.findTextBetweenTags(htmlData, startTag, endTag);
-    htmlData.replace(`${startTag}${textBetween}${endTag}`, tags[type]);
-    return htmlData.replace(`${startTag}${textBetween}${endTag}`, tags[type]);
+    if (!textBetween) return htmlData;
+    return htmlData.replace(`${startTag}${textBetween}${endTag}`, newTag);
   }
 
-  replaceSources(htmlData) {
-    Object.keys(this.tags).forEach((type)=> {
-      htmlData = this.findAndReplacePathesBetween(htmlData, this.tags[type].start, this.tags[type].end, type);
-    });
+  replaceSources(htmlData, cssBundleName, jsBundleName) {
+    if (cssBundleName) 
+      htmlData = this.findAndReplacePathsBetween(
+        htmlData, this._wrap(this.tagConfig.CSS.START), this._wrap(this.tagConfig.CSS.END), `<link rel="stylesheet" href="${cssBundleName}">`);
+    if (jsBundleName) 
+        htmlData = this.findAndReplacePathsBetween(
+          htmlData, this._wrap(this.tagConfig.JS.START), this._wrap(this.tagConfig.JS.END), `<script src="${jsBundleName}" defer></script>`);
     return htmlData;
+  }
+
+  _wrap(tag) {
+    return `<!-- ${tag} -->`;
   }
 
 };
